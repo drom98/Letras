@@ -1,10 +1,10 @@
-public class Typography.HeaderBar : Gtk.HeaderBar {
+public class Letras.HeaderBar : Gtk.HeaderBar {
 
-    public Typography.Window main_window { get; construct; }
+    public Letras.Window main_window { get; construct; }
 
-    public HeaderBar(Typography.Window window) {
+    public HeaderBar(Letras.Window window) {
         Object(
-            main_window : window
+            main_window: window
         );
     }
 

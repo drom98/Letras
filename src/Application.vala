@@ -28,7 +28,7 @@ public class Application : Gtk.Application {
         );
     }
     protected override void activate () {
-        var window = new Typography.Window(this);
+        var window = new Letras.Window(this);
 
         add_window(window);
     }

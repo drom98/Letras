@@ -89,7 +89,8 @@ code_files = files(
     'src/Application.vala',
 
     'src/Widgets/Window.vala',
-    'src/Widgets/HeaderBar.vala'
+    'src/Widgets/HeaderBar.vala',
+    'src/Widgets/Welcome.vala'
 )
 
 message ('Defines executable')
