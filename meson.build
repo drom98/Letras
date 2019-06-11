@@ -90,7 +90,9 @@ code_files = files(
 
     'src/Widgets/Window.vala',
     'src/Widgets/HeaderBar.vala',
-    'src/Widgets/Welcome.vala'
+    'src/Widgets/Welcome.vala',
+
+    'src/Views/FontViewer.vala'
 )
 
 message ('Defines executable')

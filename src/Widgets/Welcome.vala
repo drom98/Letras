@@ -8,7 +8,14 @@ public class Letras.Welcome : Gtk.Grid {
         add(welcome_screen);
         
         welcome_screen.activated.connect ((i) => {
-            
+            switch (i) {
+                case 0: 
+                    try {
+
+                    } catch (Error e) {
+                        warning (e.message);
+                    }
+            }
         });
     }
 }

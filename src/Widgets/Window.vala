@@ -3,6 +3,16 @@ public class Letras.Window : Gtk.ApplicationWindow {
     public GLib.Settings settings;
     public Gtk.Stack stack { get; set; }
 
+    public SimpleActionGroup actions { get; construct; }
+
+    public const string ACTION_OPEN = "action_open";
+    public const string ACTION_OPEN_FOLDER = "action_open_folder";
+
+    private const ActionEntry[] action_entries = {
+        { ACTION_OPEN, action_open },
+        { ACTION_OPEN_FOLDER, action_open_folder }
+    };
+
     public Window(Application app) {
         Object(
             application: app
@@ -11,6 +21,9 @@ public class Letras.Window : Gtk.ApplicationWindow {
 
     construct {
         set_default_size (800, 800);
+
+        actions = new SimpleActionGroup ();
+        actions.add_action_entries (action_entries, this);
 
         settings = new GLib.Settings ("com.github.drom98.letras");
         move(settings.get_int("pos-x"), settings.get_int("pos-y"));
@@ -51,5 +64,9 @@ public class Letras.Window : Gtk.ApplicationWindow {
         settings.set_int("window-height", height);
 
         return false;
+    }
+
+    private void action_open() {
+        
     }
 }
