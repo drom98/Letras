@@ -11,7 +11,9 @@ public class Typography.HeaderBar : Gtk.HeaderBar {
     construct {
         show_close_button = true;
 
-        title = "Letras";
-        subtitle = "Install some fonts";
+        var switcher = new Gtk.StackSwitcher();
+        switcher.stack = main_window.stack;
+
+        set_custom_title(switcher);
     }
 }
