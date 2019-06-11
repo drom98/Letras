@@ -2,7 +2,6 @@ public class Letras.Window : Gtk.ApplicationWindow {
 
     public GLib.Settings settings;
     public Gtk.Stack stack { get; set; }
-    private Gtk.SearchEntry search_entry;
 
     public Window(Application app) {
         Object(
@@ -21,13 +20,7 @@ public class Letras.Window : Gtk.ApplicationWindow {
             return save_state ();
         });
 
-        var welcome_screen = new Letras.Welcome (this);
-        
-
-        search_entry = new Gtk.SearchEntry ();
-        search_entry.expand = true;
-        search_entry.placeholder_text = "Search installed fonts";
-        search_entry.valign = Gtk.Align.CENTER;
+        var welcome_screen = new Letras.Welcome ();
 
         stack = new Gtk.Stack ();
         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
