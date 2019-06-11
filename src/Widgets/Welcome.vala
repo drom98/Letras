@@ -14,16 +14,14 @@ public class Letras.Welcome : Granite.Widgets.Welcome {
         append ("font-x-generic", "Select file", "Select a font file from your computer.");
         append ("folder", "Open folder", "Open a folder from your computer.");
 
-        //add(welcome_screen);
-        
-        activated.connect ((i) => {
-            switch (i) {
-                case 0: 
-                    try {
-                        
-                    } catch (Error e) {
-                        warning (e.message);
-                    }
+        activated.connect ( index => {
+            switch (index) {
+                case 0:
+                    print("0");
+                break;
+                case 1:
+                    print("1");
+                break;
             }
         });
     }

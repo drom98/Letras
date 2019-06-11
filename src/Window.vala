@@ -1,31 +1,20 @@
 public class Letras.Window : Gtk.ApplicationWindow {
+    public weak Letras.Application app { get; construct; }
 
     public GLib.Settings settings;
     public Gtk.Stack stack { get; set; }
 
     private Letras.Welcome welcome_screen;
 
-    public SimpleActionGroup actions { get; construct; }
-
-    public const string ACTION_OPEN = "action_open";
-    public const string ACTION_OPEN_FOLDER = "action_open_folder";
-
-    private const ActionEntry[] action_entries = {
-        { ACTION_OPEN, action_open },
-        { ACTION_OPEN_FOLDER, action_open_folder }
-    };
-
-    public Window(Application app) {
+    public Window(Letras.Application letras_app) {
         Object(
-            application: app
+            application: letras_app,
+            app: letras_app
         );
     }
 
     construct {
         set_default_size (800, 800);
-
-        actions = new SimpleActionGroup ();
-        actions.add_action_entries (action_entries, this);
 
         settings = new GLib.Settings ("com.github.drom98.letras");
         move(settings.get_int("pos-x"), settings.get_int("pos-y"));
@@ -35,7 +24,6 @@ public class Letras.Window : Gtk.ApplicationWindow {
             return save_state ();
         });
 
-        //var welcome_screen = new Letras.Welcome (this);
         welcome_screen = new Letras.Welcome(this);
 
         stack = new Gtk.Stack ();
@@ -67,25 +55,5 @@ public class Letras.Window : Gtk.ApplicationWindow {
         settings.set_int("window-height", height);
 
         return false;
-    }
-
-    private void action_open() {
-        var files_filter = new Gtk.FileFilter ();
-        files_filter.set_filter_name ("Font files");
-        files_filter.add_mime_type ("font-x-generic/*");
-
-        var file_chooser = new Gtk.FileChooserNative (
-            "Open font file",
-            this,
-            Gtk.FileChooserAction.OPEN,
-            "Open", "Cancel"
-        );
-        file_chooser.add_filter (files_filter);
-        file_chooser.select_multiple = false;
-        file_chooser.set_current_folder_uri (GLib.Environment.get_home_dir ());
-    }
-
-    private void action_open_folder() {
-        return;
     }
 }

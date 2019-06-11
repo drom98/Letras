@@ -87,12 +87,14 @@ message ('Adds files to build')
 
 code_files = files(
     'src/Application.vala',
-
-    'src/Widgets/Window.vala',
+    'src/Window.vala',
+    
     'src/Widgets/HeaderBar.vala',
     'src/Widgets/Welcome.vala',
 
-    'src/Views/FontViewer.vala'
+    'src/Views/FontViewer.vala',
+
+    'src/Services/ActionManager.vala'
 )
 
 message ('Defines executable')

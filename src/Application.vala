@@ -19,14 +19,12 @@
 * Authored by: drom98 <>
 */
 
-public class Application : Gtk.Application {
-
-    public Application () {
-        Object(
-            application_id: "com.github.drom98.letras", 
-            flags: ApplicationFlags.FLAGS_NONE
-        );
+public class Letras.Application : Gtk.Application {
+    construct {
+        application_id = "com.github.drom98.letras";
+        flags = ApplicationFlags.FLAGS_NONE;
     }
+
     protected override void activate () {
         var window = new Letras.Window(this);
 
