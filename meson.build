@@ -21,12 +21,17 @@ add_global_arguments('-DGETTEXT_PACKAGE=\"@0@\"'.format (meson.project_name()), 
 message ('Listing dependencies')
 
 dependencies = [
+    dependency('gtk+-3.0'),
     dependency('gio-unix-2.0', version: '>=2.20'),
     dependency('granite'),
 ]
 
 # Adds subfolders specific build system
 message ('Adds subfolders specific build system')
+
+subdir('data')
+
+meson.add_install_script('meson/post_install.py')
 
 icon_sizes = ['128', '256']
 
