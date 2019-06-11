@@ -17,7 +17,7 @@ public class Letras.Welcome : Granite.Widgets.Welcome {
         activated.connect ( index => {
             switch (index) {
                 case 0:
-                    print("0");
+                    Letras.ActionManager.action_from_group (Letras.ActionManager.ACTION_OPEN, main_window.get_action_group ("win"));
                 break;
                 case 1:
                     print("1");

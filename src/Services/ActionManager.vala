@@ -53,7 +53,7 @@ public class Letras.ActionManager : Object {
         return;
     }
 
-    public static void action_form_group(string action_name, ActionGroup? action_group) {
+    public static void action_from_group(string action_name, ActionGroup? action_group) {
         action_group.activate_action (action_name, null);
     }
 }

@@ -5,6 +5,7 @@ public class Letras.Window : Gtk.ApplicationWindow {
     public Gtk.Stack stack { get; set; }
 
     private Letras.Welcome welcome_screen;
+    private Letras.ActionManager action_manager;
 
     public Window(Letras.Application letras_app) {
         Object(
@@ -23,6 +24,8 @@ public class Letras.Window : Gtk.ApplicationWindow {
         delete_event.connect ( e => {
             return save_state ();
         });
+
+        action_manager = new Letras.ActionManager(app, this);
 
         welcome_screen = new Letras.Welcome(this);
 
