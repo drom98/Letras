@@ -3,8 +3,8 @@ public class Letras.HeaderBar : Gtk.HeaderBar {
     public Letras.Window main_window { get; construct; }
     private Gtk.SearchEntry search_entry;
 
-    public HeaderBar(Letras.Window window) {
-        Object(
+    public HeaderBar (Letras.Window window) {
+        Object (
             main_window: window
         );
     }

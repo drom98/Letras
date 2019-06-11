@@ -1,17 +1,26 @@
-public class Letras.Welcome : Gtk.Grid {
+public class Letras.Welcome : Granite.Widgets.Welcome {
+
+    public unowned Letras.Window main_window { get; construct; }
+
+    public Welcome (Letras.Window window) {
+        Object (
+            main_window: window,
+            title: "Install some fonts",
+            subtitle: "Select a file or open a folder."
+        );
+    }
 
     construct {
-        var welcome_screen = new Granite.Widgets.Welcome("Install some fonts", "Select a file or open a folder.");
-        welcome_screen.append ("font-x-generic", "Select file", "Select a font file from your computer.");
-        welcome_screen.append ("folder", "Open folder", "Open a folder from your computer.");
+        append ("font-x-generic", "Select file", "Select a font file from your computer.");
+        append ("folder", "Open folder", "Open a folder from your computer.");
 
-        add(welcome_screen);
+        //add(welcome_screen);
         
-        welcome_screen.activated.connect ((i) => {
+        activated.connect ((i) => {
             switch (i) {
                 case 0: 
                     try {
-
+                        
                     } catch (Error e) {
                         warning (e.message);
                     }

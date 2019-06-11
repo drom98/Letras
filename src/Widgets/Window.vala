@@ -3,6 +3,8 @@ public class Letras.Window : Gtk.ApplicationWindow {
     public GLib.Settings settings;
     public Gtk.Stack stack { get; set; }
 
+    private Letras.Welcome welcome_screen;
+
     public SimpleActionGroup actions { get; construct; }
 
     public const string ACTION_OPEN = "action_open";
@@ -33,7 +35,8 @@ public class Letras.Window : Gtk.ApplicationWindow {
             return save_state ();
         });
 
-        var welcome_screen = new Letras.Welcome ();
+        //var welcome_screen = new Letras.Welcome (this);
+        welcome_screen = new Letras.Welcome(this);
 
         stack = new Gtk.Stack ();
         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -67,6 +70,22 @@ public class Letras.Window : Gtk.ApplicationWindow {
     }
 
     private void action_open() {
-        
+        var files_filter = new Gtk.FileFilter ();
+        files_filter.set_filter_name ("Font files");
+        files_filter.add_mime_type ("font-x-generic/*");
+
+        var file_chooser = new Gtk.FileChooserNative (
+            "Open font file",
+            this,
+            Gtk.FileChooserAction.OPEN,
+            "Open", "Cancel"
+        );
+        file_chooser.add_filter (files_filter);
+        file_chooser.select_multiple = false;
+        file_chooser.set_current_folder_uri (GLib.Environment.get_home_dir ());
+    }
+
+    private void action_open_folder() {
+        return;
     }
 }
