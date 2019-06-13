@@ -4,6 +4,8 @@ public class Letras.ActionManager : Object {
 
     public SimpleActionGroup actions { get; construct; }
 
+    private string local_fonts = GLib.File.new_build_filename (GLib.Environment.get_user_data_dir (), "fonts").get_parse_name ();
+
     public const string ACTION_PREFIX = "win.";
     public const string ACTION_OPEN = "action_open";
     public const string ACTION_OPEN_FOLDER = "action_open_folder";
@@ -29,7 +31,7 @@ public class Letras.ActionManager : Object {
     public void action_open() {
         var files_filter = new Gtk.FileFilter ();
         files_filter.set_filter_name ("Font files");
-        files_filter.add_mime_type ("font-x-generic/*");
+        files_filter.add_mime_type ("font/*");
 
         var file_chooser = new Gtk.FileChooserNative (
             "Open font file",
@@ -38,7 +40,7 @@ public class Letras.ActionManager : Object {
             "Open", "Cancel"
         );
         file_chooser.add_filter (files_filter);
-        file_chooser.select_multiple = false;
+        file_chooser.select_multiple = true;
         file_chooser.set_current_folder_uri (GLib.Environment.get_home_dir ());
 
         var response = file_chooser.run ();
@@ -46,11 +48,31 @@ public class Letras.ActionManager : Object {
 
         if (response == Gtk.ResponseType.ACCEPT) {
 
+            foreach (string uri in file_chooser.get_uris ()) {
+                print(uri);
+                print(local_fonts);
+                if (copy (uri, local_fonts)) {
+                    print("Copiado com sucesso.");
+                }
+            }
         }
     }
 
     public void action_open_folder() {
         return;
+    }
+
+    public static bool copy (string path, string dest) {
+        var file = File.new_for_path (path);
+        var dest_folder = File.new_for_path (dest);
+        try {
+            file.copy (dest_folder, FileCopyFlags.NONE);
+            return true;
+        } catch (Error e) {
+            //display error dialog
+            warning (e.message);
+            return false;
+        }
     }
 
     public static void action_from_group(string action_name, ActionGroup? action_group) {
