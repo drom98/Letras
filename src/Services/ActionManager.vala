@@ -4,7 +4,7 @@ public class Letras.ActionManager : Object {
 
     public SimpleActionGroup actions { get; construct; }
 
-    private string local_fonts = GLib.File.new_build_filename (GLib.Environment.get_user_data_dir (), "fonts").get_parse_name ();
+    private File local_fonts = GLib.File.new_build_filename (GLib.Environment.get_user_data_dir (), "fonts");
 
     public const string ACTION_PREFIX = "win.";
     public const string ACTION_OPEN = "action_open";
@@ -48,10 +48,8 @@ public class Letras.ActionManager : Object {
 
         if (response == Gtk.ResponseType.ACCEPT) {
 
-            foreach (string uri in file_chooser.get_uris ()) {
-                print(uri);
-                print(local_fonts);
-                if (copy (uri, local_fonts)) {
+            foreach (File file in file_chooser.get_files ()) {
+                if (copy (file, local_fonts.get_child (file.get_basename ()))) {
                     print("Copiado com sucesso.");
                 }
             }
@@ -62,11 +60,9 @@ public class Letras.ActionManager : Object {
         return;
     }
 
-    public static bool copy (string path, string dest) {
-        var file = File.new_for_path (path);
-        var dest_folder = File.new_for_path (dest);
+    public static bool copy (File file, File dest) {
         try {
-            file.copy (dest_folder, FileCopyFlags.NONE);
+            file.copy_async (dest, FileCopyFlags.NONE, GLib.Priority.DEFAULT);
             return true;
         } catch (Error e) {
             //display error dialog
